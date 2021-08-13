@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.os.PersistableBundle;
+import android.view.MenuItem;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,13 +42,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId()==R.id.reset){
+            number=0;
+            textView.setText(String.valueOf(number));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    protected void onSaveInstanceState(@NonNull  Bundle outState) {
+    protected void onSaveInstanceState( Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("num",number);
     }
