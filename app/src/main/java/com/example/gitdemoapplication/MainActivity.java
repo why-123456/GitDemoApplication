@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnAdd;
+    private Button btnAdd,btnSub;
     private TextView textView;
     private int number=0;
     @Override
@@ -16,12 +16,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnAdd=findViewById(R.id.btnAdd);
+        btnSub=findViewById(R.id.btnSub);
         textView=findViewById(R.id.textView);
         textView.setText(String.valueOf(number));
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(String.valueOf(number++));
+                textView.setText(String.valueOf(++number));
+            }
+        });
+        btnSub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.setText(String.valueOf(--number));
             }
         });
     }
