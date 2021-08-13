@@ -1,9 +1,11 @@
 package com.example.gitdemoapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (savedInstanceState!=null){
+            number=savedInstanceState.getInt("num");
+        }
         btnAdd=findViewById(R.id.btnAdd);
         btnSub=findViewById(R.id.btnSub);
         textView=findViewById(R.id.textView);
@@ -38,5 +43,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull  Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("num",number);
     }
 }
