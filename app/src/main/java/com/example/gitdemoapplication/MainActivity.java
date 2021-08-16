@@ -2,6 +2,8 @@ package com.example.gitdemoapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 //    private int number=0;
     private MyViewModel myViewModel;
     private int myNum;
+    private MutableLiveData<Integer> mutableLiveData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,17 +36,34 @@ public class MainActivity extends AppCompatActivity {
         btnAdd=findViewById(R.id.btnAdd);
         btnSub=findViewById(R.id.btnSub);
         textView=findViewById(R.id.textView);
-        textView.setText(String.valueOf(myViewModel.getNumber()));
+//         mutableLiveData=new MutableLiveData<>();
+         mutableLiveData=myViewModel.getmNameEvent();
+//        myViewModel.setmNameEvent(mutableLiveData);
+//         mutableLiveData.setValue(0);
+        mutableLiveData.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+//                if (integer==null){
+//                    textView.setText(0+"");
+//                }else{
+                    textView.setText(integer+"");
+//                }
+            }
+        });
+
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(String.valueOf(myViewModel.setNumber(++myNum)));
+
+                myViewModel.add(++myNum);
             }
         });
         btnSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView.setText(String.valueOf(myViewModel.setNumber(--myNum)));
+//                textView.setText(String.valueOf(myViewModel.setNumber(--myNum)));
+                myViewModel.add(--myNum);
             }
         });
     }
@@ -52,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId()==R.id.reset){
             myNum=0;
-            textView.setText(String.valueOf(myNum));
+//            textView.setText(String.valueOf(myNum));
+            myViewModel.reset();
         }
         return super.onOptionsItemSelected(item);
     }
